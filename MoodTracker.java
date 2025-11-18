@@ -109,7 +109,7 @@ public class MoodTracker {
             if (moods.isEmpty()) {
                 throw new Exception("No Moods Found");
             }
-            
+
             boolean flag = false;
             LocalDate date = userDate();
             for (Mood mood : moods) {
@@ -265,11 +265,6 @@ public class MoodTracker {
         // Scanner object to take input from user
 
         ArrayList<Mood> moods = new ArrayList<Mood>();
-        LocalDateTime date = LocalDateTime.of(2001, 11, 9, 10, 55);
-        moods.add(new Mood("Test", date, "Test"));
-        date = LocalDateTime.of(2001, 10, 9, 10, 55);
-        moods.add(new Mood("Test", date, "Test"));
-        // System.out.println(moods);
 
         while (true) {
 
