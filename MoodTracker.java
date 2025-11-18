@@ -8,24 +8,43 @@ public class MoodTracker {
     static private Scanner scanner = new Scanner(System.in);
     static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy,HH:mm");
 
+    public static String userMoodInput() {
+        System.out.print("Enter Your Mood : ");
+        String userMood = scanner.nextLine();
+
+        return userMood;
+    }
+
+    public static String userNoteInput() {
+        System.out.print("Enter Your Notes : ");
+        String userNotes = scanner.nextLine();
+
+        return userNotes;
+    }
+
+    public static LocalDateTime userDateTime() {
+        System.out.print("Enter Date (DD-MM-YYYY) : ");
+        String userDate = scanner.nextLine();
+
+        System.out.print("Enter Time (HH:MM) : ");
+        String userTime = scanner.nextLine();
+
+        LocalDate date = LocalDate.parse(userDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        LocalTime time = LocalTime.parse(userTime, DateTimeFormatter.ofPattern("HH:mm"));
+
+        return LocalDateTime.of(date, time);
+    }
+
     public static void addMood(ArrayList<Mood> moods) {
         try {
-            System.out.print("Enter Your Mood : ");
-            String userMood = scanner.nextLine();
+            // User Input for Mood
+            String userMood = userMoodInput();
 
-            System.out.print("Enter Notes : ");
-            String notes = scanner.nextLine();
+            // User Input for Notes
+            String notes = userNoteInput();
 
-            System.out.print("Enter Date (DD-MM-YYYY) : ");
-            String userDate = scanner.nextLine();
-
-            System.out.print("Enter Time (HH:MM) : ");
-            String userTime = scanner.nextLine();
-
-            LocalDate date = LocalDate.parse(userDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            LocalTime time = LocalTime.parse(userTime, DateTimeFormatter.ofPattern("HH:mm"));
-
-            LocalDateTime finalLocalDateTime = LocalDateTime.of(date, time);
+            // User Input for Date And Time
+            LocalDateTime finalLocalDateTime = userDateTime();
 
             for (int i = 0; i < moods.size(); i++) {
                 if (moods.get(i).getDateTime().equals(finalLocalDateTime)) {
@@ -44,13 +63,29 @@ public class MoodTracker {
         }
     }
 
-    public static void deleteMood(ArrayList<Mood> moods) {
+    public static void EditNotes(ArrayList<Mood> moods) {
         try {
 
-        } catch (Exception e) {
-            System.out.println("Error Occured");
-        }
+            // User Input for Mood
+            String userMood = userMoodInput();
 
+            // User Input for Date And Time
+            LocalDateTime finalLocalDateTime = userDateTime();
+
+            for (Mood mood : moods) {
+                if (mood.getName().equals(userMood) && mood.getDateTime().equals(finalLocalDateTime)) {
+                    System.out.print("To update the Notes, ");
+                    String notes = userNoteInput();
+                    mood.setNotes(notes);
+                    return;
+                }
+            }
+
+            throw new Exception("Mood Not find for given date and Time");
+
+        } catch (Exception e) {
+            System.out.println("Error Occured " + e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
@@ -64,7 +99,7 @@ public class MoodTracker {
         while (true) {
 
             System.out.println(
-                    "1. Press A for Add Mood\n2. Press D for  Delete Mood\n3. Press s for Search Mood\n4. Press W for writing in file. \n5. Press R for Reading from file\n6. Press E for Exit");
+                    "1. Press A for Add Mood\n2. Press N for Edit Notes \n3. Press D for  Delete Mood\n4. Press s for Search Mood\n5. Press W for writing in file. \n6. Press R for Reading from file\n7. Press E for Exit");
 
             System.out.print("Please Select one option : ");
             // Read user input
@@ -80,8 +115,9 @@ public class MoodTracker {
                     System.out.println(moods);
                     break;
 
-                case "D":
-                    deleteMood(moods);
+                case "N":
+                    EditNotes(moods);
+                    break;
 
                 default:
                     break;
@@ -91,6 +127,6 @@ public class MoodTracker {
                 break;
             }
         }
-            scanner.close();
+        scanner.close();
     }
 }

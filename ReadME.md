@@ -63,13 +63,3 @@ Task 15: Write mood on to a file
 Write all the ArrayList moods to a file named moodtracker.txt
 
 While performing the tasks, ensure you closely adhere to the instructions. You will be provided with a Cloud IDE environment for project execution.
-
-To summarize:
-
-Read and follow the instructions carefully to complete the project.
-Let's get started!
-
-Author(s)
-Lavanya
-
-SNIBM Footerq

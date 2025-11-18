@@ -5,8 +5,7 @@ public class Mood {
 
   private String name;
   private LocalDateTime dateTime;
-  private String notes;
-  private DateTimeFormatter dateTimeFormatter;
+  private String notes;       
 
   public Mood(String name,LocalDateTime dateTime, String notes) {
     this.name = name;
